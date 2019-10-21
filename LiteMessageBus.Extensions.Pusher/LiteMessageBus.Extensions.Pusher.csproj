@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="LiteMessageBus" Version="1.0.0-Preview-1" />
+      <PackageReference Include="PusherClient" Version="1.1.0" />
+      <PackageReference Include="PusherServer" Version="4.2.0" />
+    </ItemGroup>
+
+</Project>

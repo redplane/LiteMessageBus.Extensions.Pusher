@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiteMessageBus.Extensions.Pusher", "LiteMessageBus.Extensions.Pusher\LiteMessageBus.Extensions.Pusher.csproj", "{02041B66-AB49-4086-87FE-2F79E00D2CCC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiteMessageBus.Extensions.PusherDemo", "LiteMessageBus.Extensions.PusherDemo\LiteMessageBus.Extensions.PusherDemo.csproj", "{54D1E20B-A91D-4414-AF1D-8DC35A1FCAB0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02041B66-AB49-4086-87FE-2F79E00D2CCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02041B66-AB49-4086-87FE-2F79E00D2CCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02041B66-AB49-4086-87FE-2F79E00D2CCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02041B66-AB49-4086-87FE-2F79E00D2CCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54D1E20B-A91D-4414-AF1D-8DC35A1FCAB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54D1E20B-A91D-4414-AF1D-8DC35A1FCAB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54D1E20B-A91D-4414-AF1D-8DC35A1FCAB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54D1E20B-A91D-4414-AF1D-8DC35A1FCAB0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A9421DBA-3297-4FD6-A2B7-B3F4CA33606F}
+	EndGlobalSection
+EndGlobal
