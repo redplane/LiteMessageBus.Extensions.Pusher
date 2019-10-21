@@ -1,6 +1,7 @@
 ﻿using System;
 using LiteMessageBus.Extensions.Pusher.Services;
 using LiteMessageBus.Extensions.PusherDemo.Constants;
+using LiteMessageBus.Extensions.PusherDemo.Models;
 using PusherClient;
 
 namespace LiteMessageBus.Extensions.PusherDemo
@@ -30,7 +31,7 @@ namespace LiteMessageBus.Extensions.PusherDemo
             // Pusher message bus initialization.
             var pusherMessageBus = new PusherLiteMessageBusService(broadcaster, recipient);
             pusherMessageBus
-                .HookMessageChannel<string>(MessageChannelConstants.Ui, MessageEventConstants.SendMessage)
+                .HookMessageChannel<Item>(MessageChannelConstants.Ui, MessageEventConstants.SendMessage)
                 .Subscribe(message =>
                 {
                     Console.WriteLine(
@@ -39,7 +40,8 @@ namespace LiteMessageBus.Extensions.PusherDemo
 
             recipient.ConnectAsync().Wait();
             
-            pusherMessageBus.AddMessage(MessageChannelConstants.Ui, MessageEventConstants.SendMessage, "Hello world");
+            var m4a1 = new Item(Guid.NewGuid(), "M4A1 Carbine");
+            pusherMessageBus.AddMessage(MessageChannelConstants.Ui, MessageEventConstants.SendMessage, m4a1);
             Console.WriteLine($"Sent message");
             Console.ReadLine();
         }
