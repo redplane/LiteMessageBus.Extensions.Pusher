@@ -82,7 +82,7 @@ namespace LiteMessageBus.Extensions.Pusher.Services
                 {
                     return LoadMessageChannel(channelName, eventName, false)
                         ?.InternalBroadcaster
-                        .Where(messageContainer => (messageContainer != null && messageContainer.Available))
+                        .Where(messageContainer => messageContainer != null && messageContainer.Available)
                         .Select(messageContainer =>
                         {
                             var root = messageContainer.Data;

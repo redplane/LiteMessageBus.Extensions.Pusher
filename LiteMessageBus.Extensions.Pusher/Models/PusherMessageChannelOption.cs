@@ -53,7 +53,7 @@ namespace LiteMessageBus.Extensions.Pusher.Models
         #region Methods
 
         /// <summary>
-        /// Delete the broadcasted message.
+        /// Delete the broad casted message.
         /// </summary>
         public virtual void DeleteMessage()
         {
@@ -77,7 +77,7 @@ namespace LiteMessageBus.Extensions.Pusher.Models
         #region Event handlers
 
         /// <summary>
-        /// Called when a message container was broadcasted from pusher message bus.
+        /// Called when a message container was broad casted from pusher message bus.
         /// </summary>
         /// <param name="root"></param>
         protected virtual void OnEventMessageReceived(dynamic root)
