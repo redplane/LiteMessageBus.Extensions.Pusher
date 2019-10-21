@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LiteMessageBus.Extensions.Pusher.LiteMessageBus.Extensions.PusherDemo
+namespace LiteMessageBus.Extensions.PusherDemo
 {
     class Program
     {
