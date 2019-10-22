@@ -8,7 +8,9 @@ using LiteMessageBus.Extensions.Pusher.Models;
 using LiteMessageBus.Models;
 using LiteMessageBus.Services.Interfaces;
 using Newtonsoft.Json.Linq;
+using PusherClient;
 using PusherServer;
+using PusherOptions = PusherServer.PusherOptions;
 
 namespace LiteMessageBus.Extensions.Pusher.Services
 {
@@ -47,16 +49,31 @@ namespace LiteMessageBus.Extensions.Pusher.Services
 
         #region Constructor
 
-        public PusherLiteMessageBusService(PusherServer.Pusher broadcaster, PusherClient.Pusher recipient)
+        public PusherLiteMessageBusService(string appKey, string appId,
+            string appSecret,
+            string cluster, IAuthorizer authorizer = null)
         {
             _channelManager = new ConcurrentDictionary<MessageChannel, PusherMessageChannelOption>();
             _channelInitializationManager =
                 new ConcurrentDictionary<MessageChannel, ReplaySubject<AddedChannelEvent>>();
-            _broadcaster = broadcaster;
-            _recipient = recipient;
 
-            recipient.Connected += OnRecipientConnected;
-            recipient.Disconnected += OnRecipientDisconnected;
+            _broadcaster = new PusherServer.Pusher(appId, appKey,
+                appSecret,
+                new PusherOptions
+                {
+                    Cluster = cluster,
+                    Encrypted = true
+                });
+
+            _recipient = new PusherClient.Pusher(appKey,
+                new PusherClient.PusherOptions
+                {
+                    Cluster = cluster,
+                    Authorizer = authorizer
+                });
+
+            _recipient.Connected += OnRecipientConnected;
+            _recipient.Disconnected += OnRecipientDisconnected;
         }
 
         #endregion
@@ -100,7 +117,7 @@ namespace LiteMessageBus.Extensions.Pusher.Services
                         .Select(messageContainer =>
                         {
                             var root = messageContainer.Data;
-                            
+
                             // Root is json object.
                             if (root is JObject jObject)
                                 return jObject.ToObject<T>();
@@ -126,7 +143,7 @@ namespace LiteMessageBus.Extensions.Pusher.Services
         public virtual void AddMessage<T>(string channelName, string eventName, T data)
         {
             var channelMessageEmitter = LoadMessageChannel(channelName, eventName, true);
-            channelMessageEmitter?.SendExternalMessage<T>(data); 
+            channelMessageEmitter?.SendExternalMessage<T>(data);
         }
 
         /// <summary>
@@ -200,7 +217,8 @@ namespace LiteMessageBus.Extensions.Pusher.Services
         /// Auto create option can cause concurrent issue, such as parent channel can be replaced by child component.
         /// Therefore, it should be used wisely.
         /// </summary>
-        protected virtual PusherMessageChannelOption LoadMessageChannel(string channelName, string eventName, bool autoCreate = false)
+        protected virtual PusherMessageChannelOption LoadMessageChannel(string channelName, string eventName,
+            bool autoCreate = false)
         {
             // Initialize a message channel key.
             var messageChannel = new MessageChannel(channelName, eventName);

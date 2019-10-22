@@ -29,7 +29,7 @@ namespace LiteMessageBus.Extensions.PusherDemo
             var recipient = new PusherClient.Pusher(appKey, pusherClientOptions);
 
             // Pusher message bus initialization.
-            var pusherMessageBus = new PusherLiteMessageBusService(broadcaster, recipient);
+            var pusherMessageBus = new PusherLiteMessageBusService(appKey, appId, appSecret, cluster);
             pusherMessageBus
                 .HookMessageChannel<Item>(MessageChannelConstants.Ui, MessageEventConstants.SendMessage)
                 .Subscribe(message =>
@@ -39,6 +39,7 @@ namespace LiteMessageBus.Extensions.PusherDemo
                 });
             
             var m4a1 = new Item(Guid.NewGuid(), "M4A1 Carbine");
+            pusherMessageBus.AddMessage(MessageChannelConstants.Ui, MessageEventConstants.SendMessage, m4a1);
             pusherMessageBus.AddMessage(MessageChannelConstants.Ui, MessageEventConstants.SendMessage, m4a1);
             Console.WriteLine($"Sent message");
             Console.ReadLine();
