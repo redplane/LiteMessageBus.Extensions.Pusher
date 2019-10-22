@@ -16,11 +16,20 @@ namespace LiteMessageBus.Extensions.Pusher.Services
     {
         #region Properties
 
+        /// <summary>
+        /// Instance for broadcasting messages.
+        /// </summary>
         private readonly PusherServer.Pusher _broadcaster;
 
+        /// <summary>
+        /// Instance for receiving messages.
+        /// </summary>
         private readonly PusherClient.Pusher _recipient;
 
-        #region Properties
+        /// <summary>
+        /// Whether recipient has connected or not.
+        /// </summary>
+        private bool _hasRecipientConnected = false;
 
         /// <summary>
         /// Chanel event manager.
@@ -36,8 +45,6 @@ namespace LiteMessageBus.Extensions.Pusher.Services
 
         #endregion
 
-        #endregion
-
         #region Constructor
 
         public PusherLiteMessageBusService(PusherServer.Pusher broadcaster, PusherClient.Pusher recipient)
@@ -47,6 +54,9 @@ namespace LiteMessageBus.Extensions.Pusher.Services
                 new ConcurrentDictionary<MessageChannel, ReplaySubject<AddedChannelEvent>>();
             _broadcaster = broadcaster;
             _recipient = recipient;
+
+            recipient.Connected += OnRecipientConnected;
+            recipient.Disconnected += OnRecipientDisconnected;
         }
 
         #endregion
@@ -77,6 +87,10 @@ namespace LiteMessageBus.Extensions.Pusher.Services
         /// <exception cref="NotImplementedException"></exception>
         public virtual IObservable<T> HookMessageChannel<T>(string channelName, string eventName)
         {
+            // Recipient does not connect.
+            if (_hasRecipientConnected)
+                _recipient.ConnectAsync().Wait();
+
             return HookChannelInitialization(channelName, eventName)
                 .Select(x =>
                 {
@@ -165,7 +179,7 @@ namespace LiteMessageBus.Extensions.Pusher.Services
 
         #endregion
 
-        #region Inner methods
+        #region Event handlers & inner methods
 
         /// <summary>
         /// Hook to channel initialization.
@@ -223,6 +237,24 @@ namespace LiteMessageBus.Extensions.Pusher.Services
 
             channelInitializationEventEmitter.OnNext(new AddedChannelEvent(channelName, eventName));
             return messageChannelOption;
+        }
+
+        /// <summary>
+        /// Called when recipient connected.
+        /// </summary>
+        /// <param name="sender"></param>
+        protected virtual void OnRecipientConnected(object sender)
+        {
+            _hasRecipientConnected = true;
+        }
+
+        /// <summary>
+        /// Called when recipient disconnected.
+        /// </summary>
+        /// <param name="sender"></param>
+        protected virtual void OnRecipientDisconnected(object sender)
+        {
+            _hasRecipientConnected = false;
         }
 
         #endregion
