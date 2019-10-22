@@ -23,11 +23,6 @@ namespace LiteMessageBus.Extensions.PusherDemo
             pusherClientOptions.Cluster = cluster;
             pusherClientOptions.Encrypted = true;
 
-            var broadcaster = new PusherServer.Pusher(appId,
-                appKey, appSecret, pusherServerOptions);
-
-            var recipient = new PusherClient.Pusher(appKey, pusherClientOptions);
-
             // Pusher message bus initialization.
             var pusherMessageBus = new PusherLiteMessageBusService(appKey, appId, appSecret, cluster);
             pusherMessageBus
