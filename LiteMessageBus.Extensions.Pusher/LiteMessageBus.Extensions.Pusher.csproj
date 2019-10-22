@@ -2,6 +2,14 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
+        <PackageVersion>1.0.0-Preview-1</PackageVersion>
+        <Title>LiteMessageBus.Extensions.Pusher</Title>
+        <Authors>Linh Nguyen</Authors>
+        <Description>An extension of LiteMessageBus that implemented with Pusher message bus hosting.   </Description>
+        <PackageProjectUrl>https://github.com/redplane/LiteMessageBus.Extensions.Pusher</PackageProjectUrl>
+        <PackageIconUrl>https://i.imgur.com/6gQMugE.png</PackageIconUrl>
+        <RepositoryUrl>https://github.com/redplane/LiteMessageBus.Extensions.Pusher</RepositoryUrl>
+        <PackageTags>lite-message-bus, pusher, lite message bus, message bus</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
