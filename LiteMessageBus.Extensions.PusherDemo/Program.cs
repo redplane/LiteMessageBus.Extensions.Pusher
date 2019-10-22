@@ -37,8 +37,6 @@ namespace LiteMessageBus.Extensions.PusherDemo
                     Console.WriteLine(
                         $"[PUSHER] {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss} - Message received: {message}");
                 });
-
-            recipient.ConnectAsync().Wait();
             
             var m4a1 = new Item(Guid.NewGuid(), "M4A1 Carbine");
             pusherMessageBus.AddMessage(MessageChannelConstants.Ui, MessageEventConstants.SendMessage, m4a1);

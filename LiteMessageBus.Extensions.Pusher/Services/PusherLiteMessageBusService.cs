@@ -88,7 +88,7 @@ namespace LiteMessageBus.Extensions.Pusher.Services
         public virtual IObservable<T> HookMessageChannel<T>(string channelName, string eventName)
         {
             // Recipient does not connect.
-            if (_hasRecipientConnected)
+            if (!_hasRecipientConnected)
                 _recipient.ConnectAsync().Wait();
 
             return HookChannelInitialization(channelName, eventName)
