@@ -3,6 +3,7 @@ using System.Reactive.Subjects;
 using LiteMessageBus.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PusherServer;
 
 namespace LiteMessageBus.Extensions.Pusher.Models
 {
@@ -53,7 +54,7 @@ namespace LiteMessageBus.Extensions.Pusher.Models
         #region Methods
 
         /// <summary>
-        /// Delete the broadcasted message.
+        /// Delete the broad casted message.
         /// </summary>
         public virtual void DeleteMessage()
         {
@@ -77,14 +78,17 @@ namespace LiteMessageBus.Extensions.Pusher.Models
         #region Event handlers
 
         /// <summary>
-        /// Called when a message container was broadcasted from pusher message bus.
+        /// Called when a message container was broad casted from pusher message bus.
         /// </summary>
         /// <param name="root"></param>
         protected virtual void OnEventMessageReceived(dynamic root)
         {
-            MessageContainer<object> messageContainer;
+            MessageContainer<object> messageContainer = null;
             if (root is JObject jObject)
-                messageContainer = jObject.ToObject<MessageContainer<object>>();
+            {
+                var pusherMessageContainer = jObject.ToObject<PusherMessageContainer>();
+                messageContainer = JsonConvert.DeserializeObject<MessageContainer<object>>(pusherMessageContainer.Data);
+            }
             else
                 messageContainer = JsonConvert.DeserializeObject<MessageContainer<object>>(root);
             
