@@ -31,7 +31,7 @@ namespace LiteMessageBus.Extensions.Pusher.Services
         /// <summary>
         /// Whether recipient has connected or not.
         /// </summary>
-        private bool _hasRecipientConnected = false;
+        private bool _hasRecipientConnected;
 
         /// <summary>
         /// Chanel event manager.

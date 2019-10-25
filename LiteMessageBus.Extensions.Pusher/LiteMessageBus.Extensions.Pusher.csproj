@@ -13,7 +13,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="LiteMessageBus" Version="1.0.0-Preview-1" />
+      <PackageReference Include="LiteMessageBus" Version="1.0.0-Preview-2" />
       <PackageReference Include="PusherClient" Version="1.1.0" />
       <PackageReference Include="PusherServer" Version="4.2.0" />
     </ItemGroup>
